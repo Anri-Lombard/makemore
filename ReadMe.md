@@ -1,4 +1,5 @@
 # Makemore
+* In progress...
 
 # References
 * [Andrej Karpathy's Makemore project](https://github.com/karpathy/makemore)
