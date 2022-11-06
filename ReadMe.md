@@ -29,6 +29,9 @@ interestingly one of the models is a transformer similar to the one used in GPT-
 
 ### Part 1.2: Neural Network approach
 * Since we now have a single-number loss function, we can use gradient descent to optimize the model.
+* We create a bigram dataset for the model.
+* To encode integers we use one-hot-encoding. For example, if we have 5 letters, then we encode each letter as a vector of length 5. The vector is all zeros except for a 1 in the index of the letter. For example, if the letter is "a", then the vector is [1, 0, 0, 0, 0]. If the letter is "e", then the vector is [0, 0, 0, 0, 1].
+  * Pytorch has a function to do this called torch.nn.functional.one_hot.
 * In progress...
 
 # References
