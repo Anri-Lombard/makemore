@@ -3,7 +3,7 @@ Makemore simply makes more of what it is given. It uses multiple character-level
 <br />
 interestingly one of the models is a transformer similar to the one used in GPT-3, which is kind of a big deal.
 
-## Review of video and project
+## Review of videos and project
 * In progress...
 
 # Buidling Makemoore
@@ -32,6 +32,23 @@ interestingly one of the models is a transformer similar to the one used in GPT-
 * We create a bigram dataset for the model.
 * To encode integers we use one-hot-encoding. For example, if we have 5 letters, then we encode each letter as a vector of length 5. The vector is all zeros except for a 1 in the index of the letter. For example, if the letter is "a", then the vector is [1, 0, 0, 0, 0]. If the letter is "e", then the vector is [0, 0, 0, 0, 1].
   * Pytorch has a function to do this called torch.nn.functional.one_hot.
+* We then make the softmax function from scratch with differentiable operations (so that we can do backpropogation on it - explained thoroughly in [Mikrograd](https://github.com/karpathy/micrograd)).
+  1. One-hot encode all the rows
+  2. Predict log-counts
+  3. Exponentiate them to approximate counts
+  4. Normalize counts to get probabilities
+  * Last 2 steps are Softmax.
+  * These steps represent a forward pass.
+  * We use los..backward() to do backpropogation, just like in micrograd.
+* Andrej shows how to start with a random model and then optimize it using gradient descent.
+  * We use the average negative log-likelihood as the loss function.
+* To regularize loss we add W**2 to the loss function. This is called L2 regularization.
+
+### Summary of Part 1
+Andrej introduced the bigram character model, how to train the model, sample from the model, and evaluate the quality of the model using the average negative log-likelihood loss. We trained the model in two completely different ways that give the exact same result. In the first we just counted the frequency of all the bigrams and normalized, in the second we used the average negative log-likelihood loss to optimize the counts matrix using gradient descent. The latter model is much more flexible, but is still very simple. In the following videos it will complexify all the way to transformers.
+<hr />
+
+## Part 2: MLP
 * In progress...
 
 # References
