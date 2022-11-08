@@ -48,7 +48,14 @@ interestingly one of the models is a transformer similar to the one used in GPT-
 Andrej introduced the bigram character model, how to train the model, sample from the model, and evaluate the quality of the model using the average negative log-likelihood loss. We trained the model in two completely different ways that give the exact same result. In the first we just counted the frequency of all the bigrams and normalized, in the second we used the average negative log-likelihood loss to optimize the counts matrix using gradient descent. The latter model is much more flexible, but is still very simple. In the following videos it will complexify all the way to transformers.
 <hr />
 
-## Part 2: MLP
+## Part 2: MLP (Multi-Layer Perceptron) approach
+* Last time we took a model that only had one character of context, so the predictions were not very good.
+  * As the context increase the matrix of probabilities increase exponentially.
+* The modelling approach we will adopt follows this [paper](chrome-extension://efaidnbmnnnibpcajpcglclefindmkaj/https://www.jmlr.org/papers/volume3/bengio03a/bengio03a.pdf) on MLP by Bengio et al. (2003).
+  * Instead of a word-level model, we will still keep the character-level approach.
+  * If a certain sequence of characters has never been seen in the training set, making predictions with it will be doing so with _out-of-distribution_ data.
+* The basic structure is an input layer, with a certain amount of neurons per word, then a hidden layer, and an output layer: <br />
+![Structure](Images/NeuralNetStructure.jpeg)
 * In progress...
 
 # References
