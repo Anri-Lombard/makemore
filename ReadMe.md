@@ -51,7 +51,7 @@ Andrej introduced the bigram character model, how to train the model, sample fro
 ## Part 2: MLP (Multi-Layer Perceptron) approach
 * Last time we took a model that only had one character of context, so the predictions were not very good.
   * As the context increase the matrix of probabilities increase exponentially.
-* The modelling approach we will adopt follows this [paper](chrome-extension://efaidnbmnnnibpcajpcglclefindmkaj/https://www.jmlr.org/papers/volume3/bengio03a/bengio03a.pdf) on MLP by Bengio et al. (2003).
+* The modelling approach we will adopt follows this [paper](https://proceedings.neurips.cc/paper/2000/file/728f206c2a01bf572b5940d7d9a8fa4c-Paper.pdf) on MLP by Bengio et al. (2003).
   * Instead of a word-level model, we will still keep the character-level approach.
   * If a certain sequence of characters has never been seen in the training set, making predictions with it will be doing so with _out-of-distribution_ data.
 * The basic structure is an input layer, with a certain amount of neurons per word, then a hidden layer, and an output layer: <br /><br />
