@@ -57,7 +57,20 @@ Andrej introduced the bigram character model, how to train the model, sample fro
 * The basic structure is an input layer, with a certain amount of neurons per word, then a hidden layer, and an output layer: <br /><br />
 ![Structure](Images/NeuralNetStructure.jpeg)<br /><br />
   * The amount of nodes in the hidden layer is a hyperparameter.
-    * A hyperparameter is a parameter that is not learned by the model, but is set by the user.
+    * A hyperparameter is a parameter that is not learned by the model, but is set by the user. 
+  * The input layer:
+    * We "cram" 27 unique characters into a 2 dimensional space for the table lookup.
+    * We use 27 because we have 26 letters, plus a '.' to represent the end of a word.
+    * We use 2 dimensions because we want to be able to visualize the table lookup.
+  * The hidden layer:
+    * Each tensor element is stored as a one-dimensional vector in memory.
+    * Andrej might do a video about torch.tensor, since it is fascinating.
+    * Using emb.view(-1, some_number) allows pytorch to infer the shape of the tensor.
+  * The final layer:
+    * We use F.cross_entropy to calculate the loss function.
+    * F.cross_entropy is a function that combines the log_softmax and the negative log-likelihood loss.
+* Just like in Micrograd, we use the average negative log-likelihood loss to optimize the model.
+* Torch is a very large library, so there are many ways to do the same thing.
 * In progress...
 
 # References
