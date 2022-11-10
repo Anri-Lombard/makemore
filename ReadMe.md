@@ -86,6 +86,13 @@ Andrej introduced the bigram character model, how to train the model, sample fro
   * By decreasing the learning rate Andrej managed to improve the model a lot.
   * The character dimension size is a bottle neck preventing much more improvement.
 * We see the training and validation loss are seperating at the end of training, which means we are overfitting.
+* By changing things we could beat Andrej's model performance of a 2.7 loss, but it would take a lot of time and effort. (Stay tuned for my result...)
+
+### Summary of Part 2
+Andrej introduced the MLP approach to building Makemore, which was discusses in the paper by Bengio et al. It consisted of 3 layers: input, hidden, and output. We looked at improving the model prediction by increasing the hidden layer size, and adjusting the learning rate as well as batch size - the batch size is used to increase the speed at which we train. To evaluate if our improvements worked we split the dataset into train, validation, and test sets, using the training set to train the model, the validation set to evaluate the model during training, and the test set to evaluate the model at the end. Using the paper and many adjustable options we could improve even further on Andrej's model. Andrej showed that the MLP approach works much better than the bag-of-words approach, but it could still be improved by a lot.
+<hr />
+
+## Part 3: Activations, gradients, and BatchNorm
 * In progress...
 
 # References
