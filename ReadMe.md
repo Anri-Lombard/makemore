@@ -6,7 +6,7 @@ interestingly one of the models is a transformer similar to the one used in GPT-
 ## Review of videos and project
 * In progress...
 
-# Buidling Makemoore
+# Buidling Makemore
 ## Part 1: The spelled-out intro to language modeling
 ### Part 1.1: Bigram approach
 * Bigrams are a sequence of two letters. For example, the bigrams in the word "Makemore" are "Ma", "ak", "ke", "em", "mo", "or", "re". They are used to count the frequency of a letter following another letter. For example, the bigram "ak" appears 1 time in the word "Makemore", which is then used to calculate the probability of the next letter by the language model.
