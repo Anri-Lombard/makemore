@@ -69,8 +69,23 @@ Andrej introduced the bigram character model, how to train the model, sample fro
   * The final layer:
     * We use F.cross_entropy to calculate the loss function.
     * F.cross_entropy is a function that combines the log_softmax and the negative log-likelihood loss.
+      * Could be significantly more "numerically well-behaved" than the naive approach of using tanh.
+      * With it backward pass and forward pass are both more efficient. 
 * Just like in Micrograd, we use the average negative log-likelihood loss to optimize the model.
-* Torch is a very large library, so there are many ways to do the same thing.
+* Torch is a very large library, so there are many ways to do the same thing. For example, we can use torch.nn.functional.one_hot to one-hot-encode the input, or we can use torch.nn.Embedding to do the same thing.
+* To optimize the model we train it on many mini-batches of examples, which makes the training much faster, but the gradient direction is slightly less accurate. Even though this happens it is still very useful.
+  * To find the best learning rate we use torch.linspace to create a range of learning rates, and then we train the model on each learning rate and see which one gives the best loss.
+    * With plot we can visualize the loss for each learning rate, then pick the one with the lowest loss.
+    * At the late stages of training we want to decay the learning rate, which means we want to decrease the learning rate by 10x.
+  * This is not how we would do it in production, but it is a good way to do it for testing purposes.
+* We split the dataset into 3 splits: test, dev/validation, and train sets. Roughly 10% of the data is used for testing, 10% for validation, and the rest for training.
+  * The test set is used to evaluate the model at the end.
+  * The dev set is used to evaluate the model during training.
+  * The train set is used to train the model.
+* Since our dataset is so small we might be underfitting. To prevent this we can add more hidden layers, or increase the number of neurons in the hidden layer. (Andrej decides to experiment with the latter.)
+  * By decreasing the learning rate Andrej managed to improve the model a lot.
+  * The character dimension size is a bottle neck preventing much more improvement.
+* We see the training and validation loss are seperating at the end of training, which means we are overfitting.
 * In progress...
 
 # References
