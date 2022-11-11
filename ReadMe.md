@@ -97,10 +97,21 @@ Andrej introduced the MLP approach to building Makemore, which was discusses in 
   * Basically, the network is very confident in its predictions, but they are all wrong.
 * Tanh just "squashes" the input values between -1 and 1.
   * Many of the values become -1 and 1, which is not good. As we saw in [Micrograd](https://www.youtube.com/watch?v=VMj-3S1tku0&ab_channel=AndrejKarpathy) this causes the gradient to be 0, which means the model cannot learn.
+  * To fix the problem we just reduced W by a factor of 10. This puts the preactivations in a more reasonable range between -1.5 and 1.5, so the activations are between -0.9 and 0.9.
+    * We could also redict W a bit less to have some extreme activations, but less of them is still better than what we had initially.
+    * To set a good scale, we don't just hardcode it, but we use the standard deviation of the input to set the scale.
+    * [Kaiming He et al.](https://arxiv.org/abs/1502.01852) showed that this is a good way to initialize the weights with the ReLU activation function and a convulutional neural network, but it also works well with the tanh activation function and a MLP.
+      * In fact PyTorch implements this method with [torch.nn.init.kaiming_normal_](https://pytorch.org/cppdocs/api/function_namespacetorch_1_1nn_1_1init_1ac8a913c051976a3f41f20df7d6126e57.html).
+    * The standard deviation we use is calculated as gain / sqrt(fan_in), where gain is the gain of the activation function, and fan_in is the number of input features.
+      * The gain of the tanh activation function is 5/3.
+      * The fan_in is the number of input features, which is the number of neurons in the previous layer.
 * Some of the most common activations include the following: <br />
   <br />
   ![Activations](Images/Activations.png)<br />
   <br />
+
+* Batch Normalization is a technique that normalizes the input to the activation function, which makes the training much more stable.
+  * Sergey Ioffe and Christian Szegedy introduced it in [Batch Normalization: Accelerating Deep Network Training by Reducing Internal Covariate Shift](https://arxiv.org/abs/1502.03167), which was a very impactful paper since it helped train much deeper networks.
 * In progress...
 
 # References
