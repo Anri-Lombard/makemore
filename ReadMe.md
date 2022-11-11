@@ -93,6 +93,14 @@ Andrej introduced the MLP approach to building Makemore, which was discusses in 
 <hr />
 
 ## Part 3: Activations, gradients, and BatchNorm
+* Immediately, Andrej shows the intuition behind calibrating loss, since we get a ridiculously high initial loss.
+  * Basically, the network is very confident in its predictions, but they are all wrong.
+* Tanh just "squashes" the input values between -1 and 1.
+  * Many of the values become -1 and 1, which is not good. As we saw in [Micrograd](https://www.youtube.com/watch?v=VMj-3S1tku0&ab_channel=AndrejKarpathy) this causes the gradient to be 0, which means the model cannot learn.
+* Some of the most common activations include the following: <br />
+  <br />
+  ![Activations](Images/Activations.png)<br />
+  <br />
 * In progress...
 
 # References
