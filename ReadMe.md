@@ -119,7 +119,24 @@ Andrej introduced the MLP approach to building Makemore, which was discusses in 
 * [Resnet](Other/resnet.py) is a very popular architecture that uses Batch Normalization.
   * Thus Batch Normalization can be done with torch.nn.BatchNorm1d.
 * "I have shot myself in the foot with this layer over and over in my life. I don't want you to suffer the same... Avoid [BatchNorm] if possible." - Andrej Karpathy
-* In progress...
+  * Before Batch Normalization it was very difficult to set the intial activations, which is why Batch Normalization was so impactful.
+* Andrej shows how to do the entire lecture in PyTorch which reflects what we'll see in the real world most of the time.
+* Tanh non-linearities basically help us build a neural network that can approximate any arbritrary function.
+  * This is because tanh is a very flexible activation function.
+  * However, it is not the most efficient activation function, and it is not the most stable activation function.
+* Andrej shows useful plots in determining the learning rate, the update:data ratio, good weight updates, and good gradients. Batch Normalization makes it easy to get good results on each plot.
+
+### Summary of Part 3
+Andrej introduced:
+1. Batch Normalization, which is one of the first modern innovations that helped stabilize training deep neural networks. To show this he built it entirely from scratch and showed how we would train with and without it - resulting in a much more stable model with Batch Normalization.
+2. Pytorchifying the code, which is the process of converting the code from scratch to PyTorch. This showed that PyTorch is very easy to use, and it is very similar to the code we wrote from scratch, but entire layers can be implemented with a single line of code.
+3. Plots and diagnostics we could use to understand if Neural Networks are in a good state dynamically. This is very useful for debugging and understanding what is going on in the model.
+
+Andrej thinks our character length is a bottleneck to our current model, so we would have to look at more advanced architectures to improve our model in future videos.
+<hr />
+
+## Part 4: Becomming a Backprop Ninja
+* __In progress...__
 
 # References
 * [Andrej Karpathy's Makemore project](https://github.com/karpathy/makemore)
