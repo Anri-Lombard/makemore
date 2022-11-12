@@ -112,6 +112,13 @@ Andrej introduced the MLP approach to building Makemore, which was discusses in 
 
 * Batch Normalization is a technique that normalizes the input to the activation function, which makes the training much more stable.
   * Sergey Ioffe and Christian Szegedy introduced it in [Batch Normalization: Accelerating Deep Network Training by Reducing Internal Covariate Shift](https://arxiv.org/abs/1502.03167), which was a very impactful paper since it helped train much deeper networks.
+  * Basically we just normalize hidden layers to make them roughly gaussian at initialization.
+  * Stability given by Batch Normalization comes at a cost of accuracy, by introducing enough noise to the model that it cannot learn as well.
+    * To combat this we could use other normalization techniques, such as Layer Normalization, or Instance Normalization, or Group Normalization.
+    * Batch Normalization was the first very efficient normalization technique, and it is still very popular, but many have tried to deprecate it given it's accuracy issues.
+* [Resnet](Other/resnet.py) is a very popular architecture that uses Batch Normalization.
+  * Thus Batch Normalization can be done with torch.nn.BatchNorm1d.
+* "I have shot myself in the foot with this layer over and over in my life. I don't want you to suffer the same... Avoid [BatchNorm] if possible." - Andrej Karpathy
 * In progress...
 
 # References
