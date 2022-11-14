@@ -137,6 +137,8 @@ Andrej thinks our character length is a bottleneck to our current model, so we w
 
 ## Part 4: Becomming a Backprop Ninja
 * Instead of moving on to RNN's, Andrej wants to stay on backpropagation for a bit longer. He explained why in his medium blog post [Yes you should understand backprop](https://karpathy.medium.com/yes-you-should-understand-backprop-e2f06eab496b).
+* To test understanding, Andrej added exercises to complete in this notebook.
+  * I could barely do it by myself, and found it very unintuitive at first.
 * __In progress...__
 
 # References
