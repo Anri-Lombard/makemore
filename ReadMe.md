@@ -149,6 +149,11 @@ Andrej thinks our character length is a bottleneck to our current model, so we w
   ![Mathematics1](Images/Math1.jpeg)
   ![Mathematics2](Images/Math2.jpeg)
   <br />
+
+### Summary of Part 4
+PyTorch is a powerful Machine Learning Library that significantly speeds up the process of training neural networks, but the torch.backward() has taken away much of what makes backward propogation so powerful, so Andrej went back to 2012 to show how backpropogation by hand was done in order to replace the backward() function. In the process we were expected to be proficient at calculus and know basic statistics, which we used to derive backpropogation from scratch. This was a very interesting and challenging exercise, but it was very rewarding to see how the math works behind the scenes, as well as how simple it is in hindsight. This is by far one of the best backpropogation explanations I've and contributed to the depth of my and many others' understanding.
+<hr />
+
 * __In progress...__
 
 # References
