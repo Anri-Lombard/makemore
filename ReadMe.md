@@ -138,9 +138,10 @@ Andrej thinks our character length is a bottleneck to our current model, so we w
 ## Part 4: Becomming a Backprop Ninja
 * Instead of moving on to RNN's, Andrej wants to stay on backpropagation for a bit longer. He explained why in his medium blog post [Yes you should understand backprop](https://karpathy.medium.com/yes-you-should-understand-backprop-e2f06eab496b).
 * To test understanding, Andrej added exercises to complete in this notebook.
-  * I could barely do it by myself, and found it very unintuitive at first.
+  * I could barely do it by myself, and found it very unintuitive at first, but became very intuitive and clear after a few differentiations.
   * If you happened to have a Differential Equations course available to you, it would be very helpful to take it (I took it in university, and it made the derivation much easier to understand).
   * Github copilot is unreasonably helpful for these exercises.
+  * Andrej uses mathematical concepts in abundance, making a fundemental understanding of statistics very important.
 * __In progress...__
 
 # References
