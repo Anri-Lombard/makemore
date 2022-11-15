@@ -144,9 +144,11 @@ Andrej thinks our character length is a bottleneck to our current model, so we w
   * Andrej uses mathematical concepts in abundance, making a fundemental understanding of statistics very important.
 * To describe the logits of training neural nets, Andrej describes it as "pulling" down probabilities (dlogits) of being incorrect and "pulling" up the probabilities (dlogits) of being correct, so that through this pulling system results in more correct answers as training progresses.
   * The dlogits are 0 where the probability of the prediction being correct is exactly 1, meaning the "pulling" force is essentially null.
-* The mathematics involved was quite intense and interesting. I managed to do most calculations without Andrej's help, and pointed out in red what statistical concepts were used and in purple what calculus concepts were used for those who are curious about what they should master when it comes to math and stats.
+* The mathematics involved was quite intense and interesting. I managed to do most calculations without Andrej's help, and pointed out in red what statistical concepts were used and in purple what calculus concepts were used for those who are curious about what they should master when it comes to math and stats.<br />
+  <br />
   ![Mathematics1](Images/Math1.jpeg)
   ![Mathematics2](Images/Math2.jpeg)
+  <br />
 * __In progress...__
 
 # References
