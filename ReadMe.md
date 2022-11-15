@@ -140,6 +140,7 @@ Andrej thinks our character length is a bottleneck to our current model, so we w
 * To test understanding, Andrej added exercises to complete in this notebook.
   * I could barely do it by myself, and found it very unintuitive at first.
   * If you happened to have a Differential Equations course available to you, it would be very helpful to take it (I took it in university, and it made the derivation much easier to understand).
+  * Github copilot is unreasonably helpful for these exercises.
 * __In progress...__
 
 # References
