@@ -139,7 +139,7 @@ Andrej introduced:
 Andrej thinks our character length is a bottleneck to our current model, so we would have to look at more advanced architectures to improve our model in future videos.
 <hr />
 
-## Part 4: Becomming a Backprop Ninja
+## Part 4: Becoming a Backprop Ninja
 * Instead of moving on to RNNs, Andrej wants to stay on backpropagation for a bit longer. He explained why in his medium blog post [Yes you should understand backprop](https://karpathy.medium.com/yes-you-should-understand-backprop-e2f06eab496b).
 * To test understanding, Andrej added exercises to complete in this notebook.
   * I could barely do it by myself, and found it very unintuitive at first, but became very intuitive and clear after a few differentiations.
@@ -160,14 +160,34 @@ PyTorch is a powerful Machine Learning Library that significantly speeds up the 
 
 ## Part 5: Building a WaveNet
 * [WaveNet](https://arxiv.org/abs/1609.03499) is an autoregressive model used to predict audio.
-  * Autoregressive models_ are models that predict the next value based on the previous values.
-* Andrej basically follows from part 3.
+  * _Autoregressive models_ are models that predict the next value based on the previous values.
+* Part 4's code follows from part 3.
+  * To PyTorchify the code further, Andrej simplifies the forward pass and introduces containers.
+    * Containers are a way to group layers, and they are very useful for building complex models. We implement this by using torch.nn.Sequential.
+* Instead of "squishing" all the inputs into one layer, the WaveNet architecture does it slowly, by fusing two inputs into one layer, then fusing the fused layer with another input, and so on.
+  * This is done by using dilated convolutions.
+    * Dilated convolutions are convolutions with a stride greater than 1.
+    * This is done to make the model more efficient since it is more efficient to fuse two inputs into one layer than to fuse all the inputs into one layer.
+    * Although WaveNet uses convolutional layers, we do not. It is simply for efficiency.
+* Andrej has shown that the BatchNorm layer is buggy in previous videos, but now we try and address it by adjusting the BatchNorm layer to be more stable.
+  * Currently, the running means is broadcast 32 times, but we want it to broadcast 68 times and treat 32 as the batch size. Essentially, we take the mean over both the first and second dimensions.
+  * Although this is fixed, we do not know how to improve the hyperparameters so that our training is faster.
+* With what we have done now, we understand torch.nn enough since most of its functions are built similarly to the functions we have built from scratch.
+* Here is what we learned about Deep Learning in practice:
+  1. We spend a lot of time reading documentation, although the PyTorch documentation is not the best, so we have to do the best with what we have.
+  2. Working with Jupyter notebooks and VSCode alongside each other is very useful for prototyping and debugging (making sure that the shapes work out). Then copy the code that works and paste it into VSCode for development.
+* There is a lot we still need to go into that is important for building a WaveNet, but we will cover them in the upcoming videos.
+
+### Summary of Part 5
+Andrej introduced the WaveNet architecture, which is an autoregressive model used to predict audio; although, we built a hierarchical model that mimics it, but does not replicate it exactly, to improve the model's performance. Andrej also pointed out specific bugs such as broadcasting with the wrong dimensions that are easy to oversee, giving insight into the actual process of Deep Learning in practice. In hindsight, he realized a better way to set up the development of deep learning models would be to include hyperparameter tuning and have a deeper understanding of topics such as RNN and transformers, all topics we might potentially delve into in future videos.
+<hr />
 
 * __In progress...__
 
 # References
 * [Andrej Karpathy's Makemore project](https://github.com/karpathy/makemore)
-* [Makemore Part 1](https://www.youtube.com/watch?v=PaCmpygFfXo&ab_channel=AndrejKarpathy)
-* [Makemore Part 2](https://www.youtube.com/watch?v=TCH_1BHY58I&t=76s&ab_channel=AndrejKarpathy)
-* [Makemore Part 3](https://www.youtube.com/watch?v=P6sfmUTpUmc&t=30s&ab_channel=AndrejKarpathy)
-* [Makemore Part 4](https://www.youtube.com/watch?v=q8SA3rM6ckI&t=2185s&ab_channel=AndrejKarpathy)
+* [Makemore Part 1](https://youtu.be/PaCmpygFfXo)
+* [Makemore Part 2](https://youtu.be/TCH_1BHY58I)
+* [Makemore Part 3](https://youtu.be/P6sfmUTpUmc)
+* [Makemore Part 4](https://youtu.be/q8SA3rM6ckI)
+* [Makemore Part 5](https://youtu.be/t3YJ5hKiMQ0)
