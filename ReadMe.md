@@ -1,20 +1,28 @@
 # Makemore
-Makemore simply makes more of what it is given. It uses multiple character-level language models that predict the next letter in a sequence of letters.<br />
-<br />
+
+Makemore simply makes more of what it is given. It uses multiple character-level language models that predict the next letter in a sequence of letters.
+
 interestingly one of the models is a transformer similar to the one used in GPT-3, which is kind of a big deal.
 
 ## Andrej-approved Notes
-<blockquote class="twitter-tweet"><p lang="en" dir="ltr">Very nice notes! 👍👍</p>&mdash; Andrej Karpathy (@karpathy) <a href="https://twitter.com/karpathy/status/1594537380144623616?ref_src=twsrc%5Etfw">November 21, 2022</a></blockquote>
+
+<blockquote class="twitter-tweet">
+  <p lang="en" dir="ltr">Very nice notes! 👍👍</p>&mdash; Andrej Karpathy (@karpathy) 
+  <a href="https://twitter.com/karpathy/status/1594537380144623616?ref_src=twsrc%5Etfw">November 21, 2022</a></blockquote>
 <br />
 
-## Review of videos and project
-* In progress...
+## Description
+
+Notes on the lectures done by Andrej Karpathy and my experimentation with his notebooks.
 
 # Building Makemore
+
 ## Part 1: The spelled-out intro to language modeling
+
 ### Part 1.1: Bigram approach
+
 * Bigrams are a sequence of two letters. For example, the bigrams in the word "Makemore" are "Ma", "ak", "ke", "em", "mo", "or", "re". They are used to count the frequency of a letter following another letter. For example, the bigram "ak" appears 1 time in the word "Makemore", which is then used to calculate the probability of the next letter by the language model.
-* We use the PyTorch library to build the bigram model. 
+* We use the PyTorch library to build the bigram model.
   * Pytorch is a deep-learning library that is used to build neural networks. It is similar to Tensorflow, but it is more intuitive and easier to use.
   * We end up with the occurrences of each bigram in the dataset, which is then used to calculate the probability of the next letter by the language model.
 * We then sample from the distribution created (by torch.multinomial) to generate the next letter.
@@ -32,6 +40,7 @@ interestingly one of the models is a transformer similar to the one used in GPT-
 * Our model could give an infinity if a word is very unlikely. To prevent this we do model smoothing by adding 1 element-wise to the model.
 
 ### Part 1.2: Neural Network approach
+
 * Since we now have a single-number loss function, we can use gradient descent to optimize the model.
 * We create a bigram dataset for the model.
 * To encode integers we use one-hot-encoding. For example, if we have 5 letters, then we encode each letter as a vector of length 5. The vector is all zeros except for a 1 in the index of the letter. For example, if the letter is "a", then the vector is [1, 0, 0, 0, 0]. If the letter is "e", then the vector is [0, 0, 0, 0, 1].
@@ -49,10 +58,12 @@ interestingly one of the models is a transformer similar to the one used in GPT-
 * To regularize loss we add W**2 to the loss function. This is called L2 regularization.
 
 ### Summary of Part 1
+
 Andrej introduced the bigram character model, how to train the model, sample from the model, and evaluate the quality of the model using the average negative log-likelihood loss. We trained the model in two completely different ways that give the same result. In the first we just counted the frequency of all the bigrams and normalized, in the second we used the average negative log-likelihood loss to optimize the count's matrix using gradient descent. The latter model is much more flexible but is still very simple. In the following videos, it will complexify to transformers.
 <hr />
 
 ## Part 2: MLP (Multi-Layer Perceptron) approach
+
 * Last time we took a model that only had one character of the context, so the predictions were not very good.
   * As the context increases the matrix of probabilities increases exponentially.
 * The modeling approach we will adopt follows this [paper](https://proceedings.neurips.cc/paper/2000/file/728f206c2a01bf572b5940d7d9a8fa4c-Paper.pdf) on MLP by Bengio et al. (2003).
@@ -61,7 +72,7 @@ Andrej introduced the bigram character model, how to train the model, sample fro
 * The basic structure is an input layer, with a certain amount of neurons per word, then a hidden layer, and an output layer: <br /><br />
 ![Structure](Images/NeuralNetStructure.jpeg)<br /><br />
   * The amount of nodes in the hidden layer is a hyperparameter.
-    * A hyperparameter is a parameter that is not learned by the model but is set by the user. 
+    * A hyperparameter is a parameter that is not learned by the model but is set by the user.
   * The input layer:
     * We "cram" 27 unique characters into a 2-dimensional space for the table lookup.
     * We use 27 because we have 26 letters, plus a '.' to represent the end of a word.
@@ -74,7 +85,7 @@ Andrej introduced the bigram character model, how to train the model, sample fro
     * We use F.cross_entropy to calculate the loss function.
     * F.cross_entropy is a function that combines the log_softmax and the negative log-likelihood loss.
       * Could be significantly more "numerically well-behaved" than the naive approach of using tanh.
-      * With it backward pass and forward pass are both more efficient. 
+      * With it backward pass and forward pass are both more efficient.
 * Just like in Micrograd, we use the average negative log-likelihood loss to optimize the model.
 * Torch is a very large library, so there are many ways to do the same thing. For example, we can use torch.nn.functional.one_hot to one-hot-encode the input, or we can use torch.nn.Embedding to do the same thing.
 * To optimize the model we train it on many mini-batches of examples, which makes the training much faster, but the gradient direction is slightly less accurate. Even though this happens it is still very useful.
@@ -93,10 +104,12 @@ Andrej introduced the bigram character model, how to train the model, sample fro
 * By changing things we could beat Andrej's model performance of a 2.7 loss, but it would take a lot of time and effort. (Stay tuned for my result...)
 
 ### Summary of Part 2
+
 Andrej introduced the MLP approach to building Makemore, which was discussed in the paper by Bengio et al. It consisted of 3 layers: input, hidden, and output. We looked at improving the model prediction by increasing the hidden layer size, and adjusting the learning rate as well as batch size - the batch size is used to increase the speed at which we train. To evaluate if our improvements worked we split the dataset into the train, validation, and test sets, using the training set to train the model, the validation set to evaluate the model during training, and the test set to evaluate the model at the end. Using the paper and many adjustable options we could improve even further on Andrej's model. Andrej showed that the MLP approach works much better than the bag-of-words approach, but it could still be improved by a lot.
 <hr />
 
 ## Part 3: Activations, gradients, and BatchNorm
+
 * Immediately, Andrej shows the intuition behind calibrating loss, since we get a ridiculously high initial loss.
   * Basically, the network is very confident in its predictions, but they are all wrong.
 * Tanh just "squashes" the input values between -1 and 1.
@@ -131,7 +144,9 @@ Andrej introduced the MLP approach to building Makemore, which was discussed in 
 * Andrej shows useful plots in determining the learning rate, the update:data ratio, good weight updates, and good gradients. Batch Normalization makes it easy to get good results on each plot.
 
 ### Summary of Part 3
+
 Andrej introduced:
+
 1. Batch Normalization is one of the first modern innovations that helped stabilize training deep neural networks. To show this he built it entirely from scratch and showed how we would train with and without it - resulting in a much more stable model with Batch Normalization.
 2. Pytorchifying the code, which is the process of converting the code from scratch to PyTorch. This showed that PyTorch is very easy to use, and it is very similar to the code we wrote from scratch, but entire layers can be implemented with a single line of code.
 3. Plots and diagnostics we could use to understand if Neural Networks are in a good state dynamically. This is very useful for debugging and understanding what is going on in the model.
@@ -140,6 +155,7 @@ Andrej thinks our character length is a bottleneck to our current model, so we w
 <hr />
 
 ## Part 4: Becoming a Backprop Ninja
+
 * Instead of moving on to RNNs, Andrej wants to stay on backpropagation for a bit longer. He explained why in his medium blog post [Yes you should understand backprop](https://karpathy.medium.com/yes-you-should-understand-backprop-e2f06eab496b).
 * To test understanding, Andrej added exercises to complete in this notebook.
   * I could barely do it by myself, and found it very unintuitive at first, but became very intuitive and clear after a few differentiations.
@@ -155,10 +171,12 @@ Andrej thinks our character length is a bottleneck to our current model, so we w
   <br />
 
 ### Summary of Part 4
+
 PyTorch is a powerful Machine Learning Library that significantly speeds up the process of training neural networks, but the torch.backward() has taken away much of what makes backward propagation so powerful, so Andrej went back to 2012 to show how backpropagation by hand was done in order to replace the backward() function. In the process, we were expected to be proficient at calculus and know basic statistics, which we used to derive backpropagation from scratch. This was a very interesting and challenging exercise, but it was very rewarding to see how the math works behind the scenes, as well as how simple it is in hindsight. This is by far one of the best backpropagation explanations I've had and contributed to the depth of my and many others' understanding.
 <hr />
 
 ## Part 5: Building a WaveNet
+
 * [WaveNet](https://arxiv.org/abs/1609.03499) is an autoregressive model used to predict audio.
   * _Autoregressive models_ are models that predict the next value based on the previous values.
 * Part 4's code follows from part 3.
@@ -179,12 +197,15 @@ PyTorch is a powerful Machine Learning Library that significantly speeds up the 
 * There is a lot we still need to go into that is important for building a WaveNet, but we will cover them in the upcoming videos.
 
 ### Summary of Part 5
+
 Andrej introduced the WaveNet architecture, which is an autoregressive model used to predict audio; although, we built a hierarchical model that mimics it, but does not replicate it exactly, to improve the model's performance. Andrej also pointed out specific bugs such as broadcasting with the wrong dimensions that are easy to oversee, giving insight into the actual process of Deep Learning in practice. In hindsight, he realized a better way to set up the development of deep learning models would be to include hyperparameter tuning and have a deeper understanding of topics such as RNN and transformers, all topics we might potentially delve into in future videos.
+
 <hr />
 
 * __In progress...__
 
 # References
+
 * [Andrej Karpathy's Makemore project](https://github.com/karpathy/makemore)
 * [Makemore Part 1](https://youtu.be/PaCmpygFfXo)
 * [Makemore Part 2](https://youtu.be/TCH_1BHY58I)
